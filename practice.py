@@ -94,6 +94,7 @@ def find_unique_common_items(items1, items2):
 
     return unique_common_items
 
+
     # Alternative solution:
     # We only need to make a set for one of two input lists to take advantage
     # of look-up in sets being faster than in lists (?).
@@ -109,6 +110,7 @@ def find_unique_common_items(items1, items2):
 
     # return unique_common_items    
 
+
     # Alternative solution without making a set for any of the input lists 
     # first because as we make the resulting set, if we add a duplicate to the 
     # set, the set ignores the duplicate anyway.  However, we lose the benefit 
@@ -123,6 +125,7 @@ def find_unique_common_items(items1, items2):
     #             break
 
     # return unique_common_items
+
 
     # Alternative solution using set comprehension:
     # Unsure of formatting style
@@ -160,7 +163,91 @@ def get_sum_zero_pairs(numbers):
         [[-1, 1], [0, 0]]
     """
 
-    return []
+    unique_numbers = set(numbers)
+    pairs = []
+
+    for num in unique_numbers:
+        if num <= 0:
+            if abs(num) in unique_numbers:
+                if [num, abs(num)] not in pairs:
+                    pairs.append([num, abs(num)])
+    
+    return pairs
+
+    # Question: Is there a way to write this code using list comprehension?
+
+
+    # Alternative solution if we do not let ourselves use `if ___ in ___` on 
+    # sets:
+
+    # unique_numbers = set(numbers)
+    # pairs = []
+
+    # for num1 in unique_numbers:
+    #     if num1 <= 0:
+    #         for num2 in unique_numbers:
+    #             if abs(num1) == num2:
+    #                 if [num1, num2] not in pairs:
+    #                     pairs.append([num1, num2])
+    
+    # return pairs
+
+
+    # Alternative solution if we do not let ourselves use `if ___ in ___` on 
+    # sets and we check whether element is already in output list sooner:
+
+    # unique_numbers = set(numbers)
+    # pairs = []
+
+    # for num1 in unique_numbers:
+    #     if num1 <= 0 and [num1, abs(num1)] not in pairs:
+    #         for num2 in unique_numbers:
+    #             if abs(num1) == num2:
+    #                 pairs.append([num1, num2])
+    
+    # return pairs
+
+
+    # This solution does not work yet!  Work-in-progress alternative solution 
+    # if we do not let ourselves use `if ___ in ___` on sets or on lists:
+
+    # unique_numbers = set(numbers)
+    # pairs = []
+
+    # for num1 in unique_numbers:
+    #     if num1 <= 0:
+    #         for pair in pairs:
+    #             if pair[0] == num1:
+    #                 break
+    #             for num2 in unique_numbers:
+    #                 if abs(num1) == num2:
+    #                     pairs.append([num1, num2])
+    #     continue
+    
+    # return pairs
+
+
+    # This solution does not work:
+
+    # unique_numbers = set(numbers)
+    # pairs_set = set()
+    # pairs_list = []
+
+    # for num in unique_numbers:
+    #     if num <= 0:
+    #         if abs(num) in unique_numbers:
+    #             pairs_set.add([num, abs(num)]) # Wanting to take advantage of
+    #             # sets ignoring additions that are duplicates, instead of
+    #             # having the program check whether an element is in the
+    #             # collection before deciding whether to add the element into
+    #             # the collection.  However, this code gives 
+    #             # `TypeError: unhashable type: 'list'` because we cannot add
+    #             # elements that are mutable into a set. 
+
+    # for pair in pairs_set:
+    #     pairs_list.append(pair)
+    
+    # return pairs_list
 
 
 def top_chars(phrase):
