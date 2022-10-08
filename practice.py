@@ -43,6 +43,7 @@ def without_duplicates(words):
     """
 
     unique_words = set(words)
+
     return [word for word in unique_words]
 
 
@@ -79,7 +80,57 @@ def find_unique_common_items(items1, items2):
         [2]
     """
 
-    return set()
+    unique_items1 = set(items1)
+    unique_items2 = set(items2)
+    unique_common_items = set()
+
+    for element_unique_items1 in unique_items1:
+        for element_unique_items2 in unique_items2:
+            if element_unique_items1 == element_unique_items2:
+                unique_common_items.add(element_unique_items1)
+                break # Once there is one match, we know that element is in
+                # common and do not need to check for further matches.  Without
+                # this `break`, the code works but less efficiently.
+
+    return unique_common_items
+
+    # Alternative solution:
+    # We only need to make a set for one of two input lists to take advantage
+    # of look-up in sets being faster than in lists (?).
+
+    # unique_items2 = set(items2)
+    # unique_common_items = set()
+
+    # for element_items1 in items1:
+    #     for element_unique_items2 in unique_items2:
+    #         if element_items1 == element_unique_items2:
+    #             unique_common_items.add(element_items1)
+    #             break
+
+    # return unique_common_items    
+
+    # Alternative solution without making a set for any of the input lists 
+    # first because as we make the resulting set, if we add a duplicate to the 
+    # set, the set ignores the duplicate anyway.  However, we lose the benefit 
+    # that look-up in sets is faster than in lists:
+
+    # unique_common_items = set()
+
+    # for element_items1 in items1:
+    #     for element_items2 in items2:
+    #         if element_items1 == element_items2:
+    #             unique_common_items.add(element_items1)
+    #             break
+
+    # return unique_common_items
+
+    # Alternative solution using set comprehension:
+    # Unsure of formatting style
+
+    # return set(element_items1 
+    #             for element_items1 in items1 
+    #             for element_items2 in items2 
+    #             if element_items1 == element_items2)
 
 
 def get_sum_zero_pairs(numbers):
