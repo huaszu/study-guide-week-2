@@ -275,7 +275,49 @@ def top_chars(phrase):
 
     """
 
-    return []
+    # char_counts = {}
+
+    # for char in phrase:
+    #     if char == " ":
+    #         continue
+    #     char_counts[char] = char_counts.get(char, 0) + 1
+    
+    # # Checking that dictionary is as we expect:
+    # # print(char_counts)
+    # # print(char_counts.get("T")) # Prints value
+    # # print(char_counts.values()) # Prints list of values
+    # # print(char_counts.items()) # Prints list of tuples
+
+    # most_common_chars = []
+
+    # for key, value in char_counts.items():
+    #     if value == max(char_counts.values()):
+    #         most_common_chars.append(key)
+
+    # most_common_chars.sort()
+
+    # return most_common_chars
+
+
+    # Alternative solution using list comprehension:
+    char_counts = {}
+
+    for char in phrase:
+        if char == " ":
+            continue
+        char_counts[char] = char_counts.get(char, 0) + 1
+    
+    return sorted([key 
+            for key, value in char_counts.items()
+            if value == max(char_counts.values())])
+
+    # Note: This code treats "T" and "t" as different characters, for example. 
+    #  We could modify the program to make one key in our dictionary 
+    # represent both "T" and "t".
+    # Punctuation marks, such as "." and ",", can be in our dictionary. 
+
+
+# top_chars("The rain in spain stays mainly in the plain.") # Testing
 
 #####################################################################
 # You can ignore everything below this.
